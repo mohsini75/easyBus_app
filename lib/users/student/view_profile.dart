@@ -67,26 +67,6 @@ class _ViewProfileState extends State<ViewProfile> {
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: size.height * 0.21, left: size.width * 0.27),
-                          child: ElevatedButton(
-                            child: Row(
-                              children: [
-                                Icon(Icons.arrow_back_ios_new_rounded),
-                                Text("\t\t\tReturn"),
-                              ],
-                            ),
-                            style: ElevatedButton.styleFrom(
-                                primary: Colors.blue.shade200,
-                                fixedSize: Size(150, 30),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50))),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ),
                       ]),
                       SizedBox(
                         height: 20,
