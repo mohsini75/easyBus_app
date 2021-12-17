@@ -14,13 +14,6 @@ class _add_transactionState extends State<add_transaction> {
   final _firestore = FirebaseFirestore.instance;
   //String? id;
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> streamData() {
-    return _firestore
-        .collection("users")
-        .where('id', isEqualTo: user!.uid)
-        .snapshots();
-  }
-
   CollectionReference add_transaction =
       FirebaseFirestore.instance.collection('transaction');
 
@@ -36,24 +29,26 @@ class _add_transactionState extends State<add_transaction> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream: streamData(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                var data = snapshot.data!.docs[0];
-                //addStudentComplain(data["id"]);
-                return FlatButton(
-                    onPressed: () {
-                      addStudentComplain(data["id"]);
-                    },
-                    child: Text("add transaction"));
-                //SnackBar(content: Text("Transaction added"));
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            }));
+    return Scaffold(
+      body: SingleChildScrollView(
+          child: Column(
+        children: [
+          FlatButton(
+              onPressed: () {
+                FirebaseFirestore.instance
+                    .collection("users")
+                    .where('id', isEqualTo: user!.uid)
+                    .snapshots()
+                    .first
+                    .then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+                  var extractedMap = querySnapshot.docs.first.data();
+                  addStudentComplain(extractedMap["id"]);
+                });
+              },
+              child: Center(child: Text("add transaction"))),
+        ],
+      )),
+    );
+    //SnackBar(content: Text("Transaction added"));
   }
 }
