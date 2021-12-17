@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "315725034191",
+    "project_id": "easybus-7dfdc",
+    "storage_bucket": "easybus-7dfdc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315725034191:android:78c2365271bb13687e3dba",
+        "android_client_info": {
+          "package_name": "cui.easybus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "315725034191-qlm66ot4cv59abf9t349ui5fm4338u2t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDu5czmqIBS6WsU-wP6AsRJg9QCXuxvGBg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "315725034191-qlm66ot4cv59abf9t349ui5fm4338u2t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
