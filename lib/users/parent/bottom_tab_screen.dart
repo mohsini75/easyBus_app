@@ -2,6 +2,7 @@ import 'package:demo/services/google_map.dart';
 import 'package:demo/services/live_map.dart';
 import 'package:demo/users/driver/Test/driverLocation.dart';
 import 'package:demo/users/driver/Test/studentLocation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '/users/parent/dashboard.dart';
 import '/users/parent/parentProfile.dart';
@@ -77,46 +78,55 @@ class _BottomTabScreenState extends State<ParentBottomTabScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SizedBox.expand(
-        child: PageView(
-          controller: _pageController,
-          onPageChanged: (index) {
-            setState(() => _currentIndex = index);
-          },
-          children: <Widget>[
-            Container(
-              child: ParentDashboard(),
-            ),
-            Container(
-              child: Text("transactions"),
-            ),
-            Container(
-              child: MapScreen(
-                currentLocation: studentLoc.currentLocation,
-                destinationLocation: driveLoc.currentLocation,
+    return WillPopScope(
+      onWillPop: () async {
+        await FirebaseAuth.instance.signOut();
+        return Future.value(true);
+
+        // return true;
+      },
+      child: Scaffold(
+        body: SizedBox.expand(
+          child: PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() => _currentIndex = index);
+            },
+            children: <Widget>[
+              Container(
+                child: ParentDashboard(),
               ),
-            ),
-            Container(
-              child: ParentProfileScreen(),
-            ),
+              Container(
+                child: Text("transactions"),
+              ),
+              Container(
+                child: MapScreen(
+                  currentLocation: studentLoc.currentLocation,
+                  destinationLocation: driveLoc.currentLocation,
+                ),
+              ),
+              Container(
+                child: ParentProfileScreen(),
+              ),
+            ],
+          ),
+        ),
+        bottomNavigationBar: BottomNavyBar(
+          selectedIndex: _currentIndex,
+          onItemSelected: (index) {
+            setState(() => _currentIndex = index);
+            _pageController.jumpToPage(index);
+          },
+          items: <BottomNavyBarItem>[
+            BottomNavyBarItem(title: Text('Dashboard'), icon: Icon(Icons.home)),
+            BottomNavyBarItem(
+                title: Text('Transactions'),
+                icon: Icon(Icons.view_list_rounded)),
+            BottomNavyBarItem(
+                title: Text('Location'), icon: Icon(Icons.bus_alert_rounded)),
+            BottomNavyBarItem(title: Text('Profile'), icon: Icon(Icons.person)),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavyBar(
-        selectedIndex: _currentIndex,
-        onItemSelected: (index) {
-          setState(() => _currentIndex = index);
-          _pageController.jumpToPage(index);
-        },
-        items: <BottomNavyBarItem>[
-          BottomNavyBarItem(title: Text('Dashboard'), icon: Icon(Icons.home)),
-          BottomNavyBarItem(
-              title: Text('Transactions'), icon: Icon(Icons.view_list_rounded)),
-          BottomNavyBarItem(
-              title: Text('Location'), icon: Icon(Icons.bus_alert_rounded)),
-          BottomNavyBarItem(title: Text('Profile'), icon: Icon(Icons.person)),
-        ],
       ),
     );
   }

@@ -25,29 +25,31 @@ class _StudentDashboardState extends State<StudentDashboard> {
   void initState() {
     super.initState();
 
-    // FirebaseFirestore.instance
-    //     .collection("users")
-    //     .where('id', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-    //     .snapshots()
-    //     .first
-    //     .then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
-    //   setState(() {
-    //     var userMap = querySnapshot.docs.first.data();
-    //   });
-    //   //print(userMap);
-    // });
+    FirebaseFirestore.instance
+        .collection("users")
+        .where('id', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .snapshots()
+        .first
+        .then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+      Future.delayed(Duration(seconds: 2), () {
+        setState(() {
+          var userMap = querySnapshot.docs.first.data();
+        });
+      });
+      //print(userMap);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return userMap == null
-        ? Center(
-            child: CircularProgressIndicator(),
-          )
-        : Scaffold(
-            body: SingleChildScrollView(
+    return Scaffold(
+      body: userMap == null
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : SingleChildScrollView(
               child: Column(
                 children: [
                   ClipRRect(
@@ -114,7 +116,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                               SizedBox(
                                 height: 15,
                               ),
-                              Text("Route No"),
+                              Text(userMap!['name']),
                               SizedBox(
                                 height: 20,
                               ),
@@ -146,6 +148,6 @@ class _StudentDashboardState extends State<StudentDashboard> {
                 ],
               ),
             ),
-          );
+    );
   }
 }
