@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/services/google_map.dart';
 import 'package:demo/services/live_map.dart';
 import 'package:demo/users/driver/Test/driverLocation.dart';
 import 'package:demo/users/driver/Test/studentLocation.dart';
 import 'package:demo/users/student/student_notifications.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '/users/student/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +19,24 @@ class StudentDashboard extends StatefulWidget {
 class _StudentDashboardState extends State<StudentDashboard> {
   DriverLocation driver_ = new DriverLocation();
   StudentLocation student = new StudentLocation();
+
+  Map<String, dynamic>? userMap;
+  @override
+  void initState() {
+    super.initState();
+
+    print(FirebaseAuth.instance.currentUser!.uid);
+    FirebaseFirestore.instance
+        .collection("users")
+        .where('id', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .snapshots()
+        .first
+        .then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+      var userMap = querySnapshot.docs.first.data();
+      //print(userMap);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -89,7 +109,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                         SizedBox(
                           height: 15,
                         ),
-                        Text('Route No. : 12'),
+                        Text(userMap!['name']),
                         SizedBox(
                           height: 20,
                         ),

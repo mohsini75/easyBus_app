@@ -1,5 +1,5 @@
 // @dart = 2.9
-
+import 'dart:io' show Platform;
 import 'package:demo/services/challan_pdf.dart';
 import 'package:demo/users/admin/admin_auth.dart';
 import 'package:demo/users/driver/bottom_tab_screen.dart';
@@ -13,6 +13,7 @@ import 'package:demo/users/student/add_transaction.dart';
 import 'package:demo/users/student/bottom_tab_screen.dart';
 import 'package:demo/users/student/my_transactions_chart.dart';
 import 'package:demo/users/student/student_auth.dart';
+import 'package:demo/web_app/HomePage.dart';
 import 'package:demo/welcome_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
       title: 'Parent ',
       debugShowCheckedModeBanner: false,
       //initialRoute: WelcomeScreen.routeName,
-      home: WelcomeScreen(),
+      home: Platform.isWindows ? MyHomePage() : WelcomeScreen(),
       routes: {
         WelcomeScreen.routeName: (context) => WelcomeScreen(),
         StudentAuth.routeName: (context) => StudentAuth(),
