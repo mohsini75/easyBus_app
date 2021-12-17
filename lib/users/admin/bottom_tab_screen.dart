@@ -9,6 +9,8 @@ import '/users/student/QR_scan.dart';
 import '/users/student/dashboard.dart';
 import 'package:flutter/material.dart';
 
+import 'dashboard.dart';
+
 class AdminBottomTabScreen extends StatefulWidget {
   static final routeName = "sbt";
   @override
@@ -50,10 +52,11 @@ class _BottomTabScreenState extends State<AdminBottomTabScreen> {
         body: PageView(
             controller: _pageController,
             children: <Widget>[
-              StudentDashboard(),
+              AdminDashboard(),
               //GoogleMapLocationScreen(),
+              Text("Icons.near_me_sharp"),
               // Chat1(),
-              ViewProfile()
+              ViewProfile(), Text("Icons.perm_identity"),
               //Friends(),
               //Profile(),
             ],

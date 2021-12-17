@@ -12,6 +12,7 @@ class _ViewProfileState extends State<ViewProfile> {
   final _firestore = FirebaseFirestore.instance;
 
   Stream<QuerySnapshot<Map<String, dynamic>>> streamData() {
+    print(user!.uid);
     return _firestore
         .collection("users")
         .where('id', isEqualTo: user!.uid)

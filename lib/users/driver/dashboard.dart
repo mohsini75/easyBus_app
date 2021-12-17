@@ -38,77 +38,75 @@ class _DriverDashboardState extends State<DriverDashboard> {
         ],
       ),
       //drawer: DriverDrawer(),
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Card(
-                child: Text(
-                  'ROUTE NUMBER: 12',
-                  style:
-                      TextStyle(wordSpacing: 3, letterSpacing: 3, fontSize: 30),
-                ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Card(
+              child: Text(
+                'ROUTE NUMBER: 12',
+                style:
+                    TextStyle(wordSpacing: 3, letterSpacing: 3, fontSize: 30),
               ),
-              Container(
-                  width: size.width * 1,
-                  height: 120,
-                  child: Image.asset(
-                    'assets/images/Person 05.jpg',
+            ),
+            Container(
+                width: size.width * 1,
+                height: 120,
+                child: Image.asset(
+                  'assets/images/Person 05.jpg',
+                )),
+            Divider(),
+            Container(
+              height: size.height * 0.15,
+              //width: size.width * 1,
+              //width: double.infinity,
+              decoration: BoxDecoration(
+                  // image: new DecorationImage(
+                  //   image: new ExactAssetImage('assets/images/Person 05.jpg'),
+                  //   fit: BoxFit.contain,
+                  // ),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(150),
+                      bottomLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                      bottomRight: Radius.circular(130)),
+                  gradient: LinearGradient(
+                    colors: [Colors.purple.shade300, Colors.blue.shade200],
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
                   )),
-              Divider(),
-              Container(
-                height: size.height * 0.15,
-                //width: size.width * 1,
-                //width: double.infinity,
-                decoration: BoxDecoration(
-                    // image: new DecorationImage(
-                    //   image: new ExactAssetImage('assets/images/Person 05.jpg'),
-                    //   fit: BoxFit.contain,
-                    // ),
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(150),
-                        bottomLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                        bottomRight: Radius.circular(130)),
-                    gradient: LinearGradient(
-                      colors: [Colors.purple.shade300, Colors.blue.shade200],
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                    )),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          'Vehicle Number',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        Text(
-                          'Driver name',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        Text(
-                          'Inboard Student: 123',
-                          style: TextStyle(color: Colors.white),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        'Vehicle Number',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Text(
+                        'Driver name',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Text(
+                        'Inboard Student: 123',
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                width: size.width * 0.9,
-                height: size.height * 0.43,
-                child: GoogleMapLocationScreen(d.currentLocation),
-              )
-            ],
-          ),
-        ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: size.width * 0.9,
+              height: size.height * 0.43,
+              child: GoogleMapLocationScreen(d.currentLocation),
+            )
+          ],
+        ),
       ),
     );
   }
