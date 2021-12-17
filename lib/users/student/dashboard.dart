@@ -25,15 +25,17 @@ class _StudentDashboardState extends State<StudentDashboard> {
   void initState() {
     super.initState();
 
-    FirebaseFirestore.instance
-        .collection("users")
-        .where('id', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-        .snapshots()
-        .first
-        .then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
-      var userMap = querySnapshot.docs.first.data();
-      print(userMap);
-    });
+    // FirebaseFirestore.instance
+    //     .collection("users")
+    //     .where('id', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+    //     .snapshots()
+    //     .first
+    //     .then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+    //   setState(() {
+    //     var userMap = querySnapshot.docs.first.data();
+    //   });
+    //   //print(userMap);
+    // });
   }
 
   @override
@@ -41,7 +43,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
     Size size = MediaQuery.of(context).size;
 
     return userMap == null
-        ? const Center(
+        ? Center(
             child: CircularProgressIndicator(),
           )
         : Scaffold(
@@ -112,7 +114,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                               SizedBox(
                                 height: 15,
                               ),
-                              Text(userMap!['name']),
+                              Text("Route No"),
                               SizedBox(
                                 height: 20,
                               ),

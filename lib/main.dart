@@ -43,7 +43,8 @@ class MyApp extends StatelessWidget {
       title: 'Parent ',
       debugShowCheckedModeBanner: false,
       //initialRoute: WelcomeScreen.routeName,
-      home: Platform.isWindows ? MyHomePage() : WelcomeScreen(),
+      home:
+          WelcomeScreen(), //Platform.isWindows ? MyHomePage() : WelcomeScreen(),
       routes: {
         WelcomeScreen.routeName: (context) => WelcomeScreen(),
         StudentAuth.routeName: (context) => StudentAuth(),
