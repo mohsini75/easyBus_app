@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 import 'package:demo/services/google_map.dart';
+import 'package:demo/users/admin/dashboard.dart';
 import 'package:demo/users/student/student_notifications.dart';
 import 'package:demo/users/student/view_profile.dart';
 
@@ -42,7 +43,7 @@ class _BottomTabScreenState extends State<AdminBottomTabScreen> {
       body: PageView(
           controller: _pageController,
           children: <Widget>[
-            StudentDashboard(),
+            AdminDashboard(),
             //GoogleMapLocationScreen(),
             // Chat1(),
             ViewProfile()

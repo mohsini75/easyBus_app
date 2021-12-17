@@ -151,7 +151,7 @@ class _AuthCardState extends State<AuthCard> {
         // if (rUser) {
         //   Navigator.pushReplacementNamed(context, AdminDashboard.routeName);
         // }
-        Navigator.pushReplacementNamed(context, AdminBottomTabScreen.routeName);
+        Navigator.pushReplacementNamed(context, AdminDashboard.routeName);
       } catch (e) {
         showDailog("User not found!");
       }
