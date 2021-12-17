@@ -2,7 +2,6 @@
 import 'dart:io' show Platform;
 import 'package:demo/services/challan_pdf.dart';
 import 'package:demo/users/admin/admin_auth.dart';
-import 'package:demo/users/admin/bottom_tab_screen.dart';
 import 'package:demo/users/driver/bottom_tab_screen.dart';
 import 'package:demo/users/driver/driver_auth.dart';
 import 'package:demo/users/driver/driver_notification.dart';
@@ -43,8 +42,7 @@ class MyApp extends StatelessWidget {
       title: 'Parent ',
       debugShowCheckedModeBanner: false,
       //initialRoute: WelcomeScreen.routeName,
-      home:
-          WelcomeScreen(), //Platform.isWindows ? MyHomePage() : WelcomeScreen(),
+      home: Platform.isWindows ? MyHomePage() : WelcomeScreen(),
       routes: {
         WelcomeScreen.routeName: (context) => WelcomeScreen(),
         StudentAuth.routeName: (context) => StudentAuth(),
@@ -60,7 +58,6 @@ class MyApp extends StatelessWidget {
         //RegistrationForm.routeName: (context) => RegistrationForm(),
 
         StudentBottomTabScreen.routeName: (context) => StudentBottomTabScreen(),
-        AdminBottomTabScreen.routeName: (context) => AdminBottomTabScreen(),
         ParentBottomTabScreen.routeName: (context) => ParentBottomTabScreen(),
         DriverNavbar.routeName: (context) => DriverNavbar(),
       },

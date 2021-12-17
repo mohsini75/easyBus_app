@@ -61,14 +61,14 @@ class _ViewUserScreenState extends State<ViewUserScreen> {
               'Registered ${widget.role}s ',
               style: TextStyle(color: Colors.blue.shade300, letterSpacing: 2),
             ),
-            leading: IconButton(
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: Colors.blue.shade300,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                }),
+            // leading: IconButton(
+            //     icon: Icon(
+            //       Icons.arrow_back_ios_new,
+            //       color: Colors.blue.shade300,
+            //     ),
+            //     onPressed: () {
+
+            //     }),
 
             /*
             bottom: AppBar(

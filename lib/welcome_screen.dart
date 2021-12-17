@@ -1,4 +1,3 @@
-import 'package:demo/users/admin/bottom_tab_screen.dart';
 import 'package:demo/users/driver/bottom_tab_screen.dart';
 import 'package:demo/users/parent/bottom_tab_screen.dart';
 import 'package:demo/users/student/bottom_tab_screen.dart';
@@ -128,8 +127,7 @@ class WelcomeScreen extends StatelessWidget {
                 Icons.admin_panel_settings_rounded,
                 () {
                   if (FirebaseAuth.instance.currentUser != null) {
-                    Navigator.pushNamed(
-                        context, AdminBottomTabScreen.routeName);
+                    Navigator.pushNamed(context, AdminDashboard.routeName);
                   } else {
                     Navigator.pushNamed(context, AdminAuth.routeName);
                   }

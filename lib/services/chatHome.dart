@@ -17,10 +17,25 @@ class _ChatHomeState extends State<ChatHome>
   final TextEditingController _search = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  String? thisDriverRoute;
 
   @override
   void initState() {
     super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
+      if (documentSnapshot.exists) {
+        // setState(() {
+        thisDriverRoute = documentSnapshot['route'];
+        print(documentSnapshot['name']);
+        // });
+      } else {
+        print("Driver document not found");
+      }
+    });
     // WidgetsBinding.instance!.addObserver(this);
     // setStatus("Online");
   }
@@ -30,7 +45,6 @@ class _ChatHomeState extends State<ChatHome>
   //     "status": status,
   //   });
   // }
-
   // @override
   // void didChangeAppLifecycleState(AppLifecycleState state) {
   //   if (state == AppLifecycleState.resumed) {
@@ -91,68 +105,126 @@ class _ChatHomeState extends State<ChatHome>
                 child: CircularProgressIndicator(),
               ),
             )
-          : Column(
-              children: [
-                SizedBox(
-                  height: size.height / 20,
-                ),
-                Container(
-                  height: size.height / 14,
-                  width: size.width,
-                  alignment: Alignment.center,
-                  child: Container(
-                    height: size.height / 14,
-                    width: size.width / 1.15,
-                    child: TextField(
-                      controller: _search,
-                      decoration: InputDecoration(
-                        hintText: "Search",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: size.height / 20,
                   ),
-                ),
-                SizedBox(
-                  height: size.height / 50,
-                ),
-                ElevatedButton(
-                  onPressed: onSearch,
-                  child: Text("Search"),
-                ),
-                SizedBox(
-                  height: size.height / 30,
-                ),
-                userMap != null
-                    ? ListTile(
-                        onTap: () {
-                          String roomId = chatRoomId(
-                              _auth.currentUser!.uid, userMap!['id']);
+                  // for search
+                  // Container(
+                  //   height: size.height / 14,
+                  //   width: size.width,
+                  //   alignment: Alignment.center,
+                  //   child: Container(
+                  //     height: size.height / 14,
+                  //     width: size.width / 1.15,
+                  //     child: TextField(
+                  //       controller: _search,
+                  //       decoration: InputDecoration(
+                  //         hintText: "Search",
+                  //         border: OutlineInputBorder(
+                  //           borderRadius: BorderRadius.circular(10),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // // SizedBox(
+                  //   height: size.height / 50,
+                  // ),
+                  // ElevatedButton(
+                  //   onPressed: onSearch,
+                  //   child: Text("Search"),
+                  // ),
+                  // SizedBox(
+                  //   height: size.height / 30,
+                  // ),
+                  // userMap != null
+                  //     ? ListTile(
+                  //         onTap: () {
+                  //           String roomId = chatRoomId(
+                  //               _auth.currentUser!.uid, userMap!['id']);
+                  //           Navigator.of(context).push(
+                  //             MaterialPageRoute(
+                  //               builder: (_) => ChatRoom(
+                  //                 chatRoomId: roomId,
+                  //                 userMap: userMap!,
+                  //               ),
+                  //             ),
+                  //           );
+                  //         },
+                  //         leading: Icon(Icons.account_box, color: Colors.black),
+                  //         title: Text(
+                  //           userMap!['name'],
+                  //           style: TextStyle(
+                  //             color: Colors.black,
+                  //             fontSize: 17,
+                  //             fontWeight: FontWeight.w500,
+                  //           ),
+                  //         ),
+                  //         subtitle: Text(userMap!['email']),
+                  //         trailing: Icon(Icons.chat, color: Colors.black),
+                  //       )
+                  //     : Container(),
 
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => ChatRoom(
-                                chatRoomId: roomId,
-                                userMap: userMap!,
-                              ),
-                            ),
+                  //for all list
+                  StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                      stream: FirebaseFirestore.instance
+                          .collection("users")
+                          .where('route', isEqualTo: thisDriverRoute)
+                          .where('role', isEqualTo: 'student')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data!.docs.length == 0) {
+                            return Center(child: Text("No Student found"));
+                          }
+                          return Flex(
+                            direction: Axis.vertical,
+                            children: snapshot.data!.docs.map((map) {
+                              return ListTile(
+                                onTap: () {
+                                  String roomId = chatRoomId(
+                                      _auth.currentUser!.uid, map['id']);
+
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) => ChatRoom(
+                                        chatRoomId: roomId,
+                                        userMap: {
+                                          "id": map['id'],
+                                          "name": map['name'],
+                                          "email": map['email'],
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                },
+                                leading: Icon(Icons.account_box,
+                                    color: Colors.black),
+                                title: Text(
+                                  map['name'],
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                subtitle: Text(map['email']),
+                                trailing: Icon(Icons.chat, color: Colors.black),
+                              );
+                              // return postedRideItem(
+                              //     RideModel.fromDocumentSnapshot(snapshot: e),
+                              //     context);
+                            }).toList(),
                           );
-                        },
-                        leading: Icon(Icons.account_box, color: Colors.black),
-                        title: Text(
-                          userMap!['name'],
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        subtitle: Text(userMap!['email']),
-                        trailing: Icon(Icons.chat, color: Colors.black),
-                      )
-                    : Container(),
-              ],
+                        } else {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                      }),
+                ],
+              ),
             ),
     );
   }

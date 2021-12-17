@@ -21,6 +21,8 @@ class RegistrationForm extends StatelessWidget {
     late String contactNo;
     late String routeNo;
     late String address;
+    late String email = loggedInUser!.email.toString();
+    print("email");
 
     void showDailog(String meassage) {
       showDialog(
@@ -148,13 +150,16 @@ class RegistrationForm extends StatelessWidget {
                         );
                       }
                       print(id);
-                      _firestore.collection('students').add({
+                      _firestore.collection('users').add({
                         'id': id,
                         'name': name,
                         'regNo': regNo,
+                        'email': email,
+                        'role': 'student',
                         'contactNo': contactNo,
                         'routeNo': routeNo,
                         'address': address,
+                        'feeChalan': false
                       });
                       print("Student added!");
                       // if (_formKey.currentState?.validate() == true) {

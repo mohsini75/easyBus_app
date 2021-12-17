@@ -20,33 +20,33 @@ class _StudentDashboardState extends State<StudentDashboard> {
   DriverLocation driver_ = new DriverLocation();
   StudentLocation student = new StudentLocation();
 
-  Map<String, dynamic>? userMap;
-  @override
-  void initState() {
-    super.initState();
+  // Map<String, dynamic>? userMap;
+  // @override
+  // void initState() {
+  //   super.initState();
 
-    FirebaseFirestore.instance
-        .collection("users")
-        .where('id', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-        .snapshots()
-        .first
-        .then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
-      Future.delayed(Duration(seconds: 2), () {
-        setState(() {
-          var userMap = querySnapshot.docs.first.data();
-        });
-      });
-      //print(userMap);
-    });
-  }
+  //   FirebaseFirestore.instance
+  //       .collection("users")
+  //       .where('id', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+  //       .snapshots()
+  //       .first
+  //       .then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+  //     Future.delayed(Duration(seconds: 2), () {
+  //       setState(() {
+  //         var userMap = querySnapshot.docs.first.data();
+  //       });
+  //     });
+  //     //print(userMap);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: userMap == null
-          ? const Center(
+      body: false //userMap == null
+          ? Center(
               child: CircularProgressIndicator(),
             )
           : SingleChildScrollView(
@@ -116,7 +116,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                               SizedBox(
                                 height: 15,
                               ),
-                              Text(userMap!['name']),
+                              Text('Route No: 10'),
                               SizedBox(
                                 height: 20,
                               ),

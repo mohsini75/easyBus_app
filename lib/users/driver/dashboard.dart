@@ -26,7 +26,10 @@ class _DriverDashboardState extends State<DriverDashboard> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("DashBoard"),
+        title: Text(
+          "DashBoard",
+          style: TextStyle(color: Colors.blue),
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.share_location_rounded),

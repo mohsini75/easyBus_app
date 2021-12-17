@@ -1,10 +1,12 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:demo/services/chatHome.dart';
 
 import 'package:demo/services/live_map.dart';
 import 'package:demo/users/driver/Test/driverLocation.dart';
 import 'package:demo/users/driver/Test/studentLocation.dart';
 import 'package:demo/users/driver/view_driver_profile.dart';
 import 'package:demo/users/student/add_transaction.dart';
+import 'package:demo/users/student/studentChatHome.dart';
 import 'package:demo/users/student/view_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -67,7 +69,7 @@ class _BottomTabScreenState extends State<StudentBottomTabScreen> {
                 currentLocation: student.currentLocation,
                 destinationLocation: driver_.currentLocation,
               ),
-              StudentNotificationScreen(),
+              StudentChatHome(),
               ViewProfile()
               //Friends(),
               //Profile(),
@@ -93,7 +95,7 @@ class _BottomTabScreenState extends State<StudentBottomTabScreen> {
               color: Colors.deepPurple,
             ),
             Icon(
-              Icons.notifications_active,
+              Icons.chat_bubble,
               size: 30,
               color: Colors.deepPurple,
             ),
