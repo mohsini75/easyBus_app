@@ -25,7 +25,6 @@ class _StudentDashboardState extends State<StudentDashboard> {
   void initState() {
     super.initState();
 
-    print(FirebaseAuth.instance.currentUser!.uid);
     FirebaseFirestore.instance
         .collection("users")
         .where('id', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
@@ -33,7 +32,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
         .first
         .then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
       var userMap = querySnapshot.docs.first.data();
-      //print(userMap);
+      print(userMap);
     });
   }
 
@@ -41,105 +40,110 @@ class _StudentDashboardState extends State<StudentDashboard> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ClipRRect(
-              child: Container(
-                height: size.height * 0.35,
-                width: size.width * 0.9,
-                child: MapScreen(
-                  currentLocation: student.currentLocation,
-                  destinationLocation: driver_.currentLocation,
-                ),
-              ),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
-                bottomRight: Radius.circular(30),
-                bottomLeft: Radius.circular(30),
-              ),
-            ),
-            Container(
-              height: size.height * 0.2,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/images/Smartphone 03.jpg')),
-                //fit: BoxFit.scaleDown,
-              ),
-            ),
-            Text(
-              "Route Information",
-              style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                  letterSpacing: 3),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SizedBox(
-                  width: 30,
-                ),
-                Container(
-                  height: size.height * 0.18,
-                  width: 10,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      gradient: LinearGradient(colors: [
-                        Colors.blue.shade200,
-                        Colors.purple.shade100
-                      ])),
-                ),
-                Card(
-                  elevation: 4,
-                  shadowColor: Colors.purple[100],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50.0),
-                  ),
-                  child: Container(
-                    height: size.height * 0.2,
-                    width: size.width * 0.6,
-                    child: Column(
-                      //crossAxisAlignment: CrossAxisAlignment.start,
-                      //mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(userMap!['name']),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Text('Total Rides : 9'),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text('Fee Clearance'),
-                            Container(
-                              height: 8,
-                              width: 50,
-                              //color: Colors.green,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: Colors.green),
-                            ),
-                          ],
-                        )
-                      ],
+    return userMap == null
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : Scaffold(
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ClipRRect(
+                    child: Container(
+                      height: size.height * 0.35,
+                      width: size.width * 0.9,
+                      child: MapScreen(
+                        currentLocation: student.currentLocation,
+                        destinationLocation: driver_.currentLocation,
+                      ),
+                    ),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
+                      bottomLeft: Radius.circular(30),
                     ),
                   ),
-                ),
-              ],
+                  Container(
+                    height: size.height * 0.2,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/Smartphone 03.jpg')),
+                      //fit: BoxFit.scaleDown,
+                    ),
+                  ),
+                  Text(
+                    "Route Information",
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black,
+                        letterSpacing: 3),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        width: 30,
+                      ),
+                      Container(
+                        height: size.height * 0.18,
+                        width: 10,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            gradient: LinearGradient(colors: [
+                              Colors.blue.shade200,
+                              Colors.purple.shade100
+                            ])),
+                      ),
+                      Card(
+                        elevation: 4,
+                        shadowColor: Colors.purple[100],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0),
+                        ),
+                        child: Container(
+                          height: size.height * 0.2,
+                          width: size.width * 0.6,
+                          child: Column(
+                            //crossAxisAlignment: CrossAxisAlignment.start,
+                            //mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text(userMap!['name']),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text('Total Rides : 9'),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text('Fee Clearance'),
+                                  Container(
+                                    height: 8,
+                                    width: 50,
+                                    //color: Colors.green,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        color: Colors.green),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
   }
 }
