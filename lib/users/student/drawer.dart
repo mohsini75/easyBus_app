@@ -1,11 +1,11 @@
-import 'package:demo/services/challan_pdf.dart';
+import 'package:demo/services/challan.dart';
 import 'package:demo/users/student/dashboard.dart';
 import 'package:demo/users/student/rating_feedback.dart';
 import 'package:demo/users/student/student_Complain.dart';
 import 'package:demo/users/student/student_auth.dart';
 import 'package:demo/users/student/student_notifications.dart';
 import 'package:fancy_drawer/fancy_drawer.dart';
-import '/users/student/QR_scan.dart';
+import 'qr_scan.dart';
 import '/users/student/view_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -128,7 +128,7 @@ class _DrawerAppState extends State<DrawerApp>
                         onTap: () {
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: (context) {
-                            return challan_view();
+                            return Challan();
                           }));
                         },
                       ),
