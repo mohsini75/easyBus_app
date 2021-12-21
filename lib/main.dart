@@ -1,5 +1,5 @@
 // @dart = 2.9
-import 'dart:io' show Platform;
+
 import 'package:demo/services/challan.dart';
 
 import 'package:demo/services/live_map.dart';
@@ -16,16 +16,14 @@ import 'package:demo/users/student/add_transaction.dart';
 import 'package:demo/users/student/bottom_tab_screen.dart';
 import 'package:demo/users/student/my_transactions_chart.dart';
 import 'package:demo/users/student/student_auth.dart';
-import 'package:demo/web_app/HomePage.dart';
 import 'package:demo/welcome_screen.dart';
-import 'package:demo/users/student/rating_feedback.dart';
-import 'package:demo/welcome_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:splashscreen/splashscreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 import 'users/admin/dashboard.dart';
 import 'users/driver/dashboard.dart';
@@ -40,7 +38,7 @@ void main() async {
 
   runApp(new MaterialApp(
     home: new MyApp(),
-     routes: {
+    routes: {
       WelcomeScreen.routeName: (context) => WelcomeScreen(),
       StudentAuth.routeName: (context) => StudentAuth(),
       AdminAuth.routeName: (context) => AdminAuth(),
@@ -61,8 +59,33 @@ void main() async {
   ));
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // @override
+  // initState() async {
+  //   super.initState();
+  //   // if (Platform.isWindows) {
+  //   //   selectedWidget =  WelcomeScreen();
+  //   // } else {
+  //   //   if (FirebaseAuth.instance.currentUser != null) {
+  //   //     SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  //   //     // await prefs.setString('currentUserRole', role);
+  //   //     String currentUser = prefs.getString('currentUserRole');
+  //   //     if (currentUser == 'driver') {
+  //   //       //  selectedWidget = driverBottomSheet
+  //   //     } else if (currentUser == 'Student') {}
+
+  //   //     // String currentLogInUser = getUserRole() as String;
+  //   //   } else {
+  //   //     selectedWidget = WelcomeScreen();
+  //   //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return SplashScreen(
@@ -78,24 +101,6 @@ class MyApp extends StatelessWidget {
       backgroundColor: Colors.white,
       loaderColor: Colors.purple,
     );
-    // routes: {
-    //   WelcomeScreen.routeName: (context) => WelcomeScreen(),
-    //   StudentAuth.routeName: (context) => StudentAuth(),
-    //   AdminAuth.routeName: (context) => AdminAuth(),
-    //   DriverAuth.routeName: (context) => DriverAuth(),
-    //   ParentAuth.routeName: (context) => ParentAuth(),
-    //   RegistrationForm.routeName: (context) => RegistrationForm(),
-    //   // Dashboard Routes
-    //   AdminDashboard.routeName: (context) => AdminDashboard(),
-    //   StudentDashboard.routeName: (context) => StudentDashboard(),
-    //   DriverDashboard.routeName: (context) => DriverDashboard(),
-    //   ParentDashboard.routeName: (context) => ParentDashboard(),
-    //   //RegistrationForm.routeName: (context) => RegistrationForm(),
-
-    //   StudentBottomTabScreen.routeName: (context) => StudentBottomTabScreen(),
-    //   ParentBottomTabScreen.routeName: (context) => ParentBottomTabScreen(),
-    //   DriverNavbar.routeName: (context) => DriverNavbar(),
-    // },
   }
 }
 
