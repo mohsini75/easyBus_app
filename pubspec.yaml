@@ -25,6 +25,7 @@ dependencies:
   cupertino_icons: ^1.0.3
   flutter:
     sdk: flutter
+  splashscreen: ^1.3.5  
   bottom_navy_bar: ^6.0.0
   flutter_svg: ^0.22.0
   google_maps_flutter: ^2.0.8
@@ -50,8 +51,11 @@ dependencies:
   im_stepper: ^0.1.3
   toggle_switch: ^1.2.0
   syncfusion_flutter_charts: ^19.3.44+1
-  pdf: ^3.6.5
   rating_dialog: ^2.0.1
+#pdf
+  syncfusion_flutter_pdf: ^19.4.38-beta
+  open_file: ^3.2.1
+  path_provider: ^2.0.8
   
  #drawers
   fancy_drawer: ^2.0.0
@@ -83,6 +87,8 @@ flutter:
     - assets/images/purple_button.jpg
     - assets/images/splash_image.PNG
     - assets/images/Person 05.jpg
+    - assets/images/ratingBus.jpg
+    - assets/gifs/Bus driver.gif
 
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -40,7 +40,8 @@ class transactionDatabase {
                         subtitle: Text(DateFormat.yMMMEd()
                             .format(DateTime.now())
                             .toString()),
-                        title: Text("${data.docs[index][title]}"),
+                        title: Text(
+                            DateFormat("hh:mm:ss a").format(DateTime.now())),
                         //trailing: Text("${data.docs[index][trailing]}"),
                       ),
                     ),

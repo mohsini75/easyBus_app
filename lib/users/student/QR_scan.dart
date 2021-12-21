@@ -5,8 +5,6 @@ import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() => runApp(const App());
-
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
   @override
@@ -14,7 +12,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  String? scanResult;
+  String scanResult = "demo scan";
 
   final _flashOnController = TextEditingController(text: 'Flash on');
   final _flashOffController = TextEditingController(text: 'Flash off');
@@ -244,9 +242,10 @@ class _AppState extends State<App> {
           //   useAutoFocus: _useAutoFocus,
         ),
       );
+      final stringResult = result.rawContent;
 
       setState(() {
-        scanResult = result.toString();
+        scanResult = stringResult;
         print(scanResult);
       });
     } on PlatformException catch (e) {

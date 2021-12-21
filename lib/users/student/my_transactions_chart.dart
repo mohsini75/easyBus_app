@@ -28,7 +28,7 @@ class _MyTransactionChartState extends State<MyTransactionChart> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> transaction =
-        _firestore.collection('transaction').snapshots();
+        _firestore.collection('transactions').snapshots();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
