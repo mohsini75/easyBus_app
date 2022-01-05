@@ -64,17 +64,17 @@ class ParentDashboard extends StatelessWidget {
                     children: [
                       Icon(Icons.bus_alert_rounded),
                       Text(
-                        'Driver Name',
+                        'Driver Name : Rasheed',
                       ),
                       SizedBox(height: 20),
-                      Text('Route Number'),
+                      Text('Route Number :12'),
                       SizedBox(height: 20),
                       Text('Fee Challan Clearance'),
                       Container(
                         height: 15,
                         width: 100,
                         decoration: BoxDecoration(
-                            color: Colors.blue,
+                            color: Colors.red,
                             borderRadius: BorderRadius.circular(30)),
                         child: Text(''),
                       ),

@@ -37,6 +37,7 @@ void main() async {
   await Firebase.initializeApp();
 
   runApp(new MaterialApp(
+    debugShowCheckedModeBanner: false,
     home: new MyApp(),
     routes: {
       WelcomeScreen.routeName: (context) => WelcomeScreen(),

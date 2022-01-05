@@ -2,6 +2,7 @@ import 'package:demo/services/google_map.dart';
 import 'package:demo/services/live_map.dart';
 import 'package:demo/users/driver/Test/driverLocation.dart';
 import 'package:demo/users/driver/Test/studentLocation.dart';
+import 'package:demo/users/student/my_transactions_chart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '/users/parent/dashboard.dart';
@@ -97,7 +98,7 @@ class _BottomTabScreenState extends State<ParentBottomTabScreen> {
                 child: ParentDashboard(),
               ),
               Container(
-                child: Text("transactions"),
+                child: MyTransactionChart(),
               ),
               Container(
                 child: MapScreen(

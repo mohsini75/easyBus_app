@@ -93,10 +93,13 @@ class _ChallanState extends State<Challan> {
         items: PdfListItemCollection(<String>[
           'Name:\t${mapData['name']}',
           'Reg No.\t${mapData['regNo']}',
-          'ID:\t${mapData['id']}',
+          //'ID:\t${mapData['id']}',
           'Date:\t${DateTime.now().toString()}',
-          'Price:\t${await getTransCount() * 150}',
-          "Due Date:\t${DateTime.now().toString()}"
+
+          "Due Date:\t${DateTime.now().add(Duration(days: 5, hours: 23)).toString()}"
+              '======================',
+          'Price:\t${2150}',
+          '======================',
         ]),
         marker: PdfOrderedMarker(
             style: PdfNumberStyle.none,

@@ -5,6 +5,7 @@ import 'package:demo/users/driver/Test/DriverLocation.dart';
 import 'package:demo/users/driver/driver_notification.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:location/location.dart';
 import 'drawer.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,22 @@ class DriverDashboard extends StatefulWidget {
 class _DriverDashboardState extends State<DriverDashboard> {
   DriverLocation d = new DriverLocation();
   Location location = new Location();
+  late Map<String, dynamic> mapData;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .where('role', isEqualTo: "driver")
+        .where('id', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .snapshots()
+        .first
+        .then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+      mapData = querySnapshot.docs.first.data();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -46,7 +63,7 @@ class _DriverDashboardState extends State<DriverDashboard> {
           children: [
             Card(
               child: Text(
-                'ROUTE NUMBER: 12',
+                "Route Number" + mapData['routeNo'],
                 style:
                     TextStyle(wordSpacing: 3, letterSpacing: 3, fontSize: 30),
               ),
@@ -84,17 +101,13 @@ class _DriverDashboardState extends State<DriverDashboard> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        'Vehicle Number',
+                        mapData['vehicle'],
                         style: TextStyle(color: Colors.white),
                       ),
                       Text(
-                        'Driver name',
+                        mapData['routeNo'],
                         style: TextStyle(color: Colors.white),
                       ),
-                      Text(
-                        'Inboard Student: 123',
-                        style: TextStyle(color: Colors.white),
-                      )
                     ],
                   ),
                 ],

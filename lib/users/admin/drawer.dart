@@ -3,7 +3,6 @@ import 'package:demo/users/student/view_user_card.dart';
 
 import '/users/student/view_profile.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 final _auth = FirebaseAuth.instance;

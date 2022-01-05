@@ -5,7 +5,6 @@ import 'package:demo/users/student/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'bottom_tab_screen.dart';
 

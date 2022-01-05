@@ -65,8 +65,6 @@ class _ViewProfileState extends State<ViewProfile> {
                               Text(data['email'],
                                   style: TextStyle(
                                       fontSize: 16, letterSpacing: 2)),
-                              ElevatedButton(
-                                  onPressed: () {}, child: Text("Edit")),
                             ],
                           ),
                         ),

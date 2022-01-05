@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/model/driver.dart';
 import 'package:demo/services/google_map.dart';
 import 'package:demo/users/driver/maintenanceReport.dart';
@@ -30,7 +31,7 @@ class _DriverDrawerState extends State<DriverDrawer>
 
   @override
   late FancyDrawerController _controller;
-
+  Map<String, dynamic>? mapData;
   @override
   void initState() {
     super.initState();
@@ -39,6 +40,16 @@ class _DriverDrawerState extends State<DriverDrawer>
       ..addListener(() {
         setState(() {});
       });
+
+    // FirebaseFirestore.instance
+    //     .collection("users")
+    //     .where('role', isEqualTo: "driver")
+    //     .where('id', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+    //     .snapshots()
+    //     .first
+    //     .then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+    //   mapData = querySnapshot.docs.first.data();
+    // });
   }
 
   @override
@@ -50,6 +61,15 @@ class _DriverDrawerState extends State<DriverDrawer>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    FirebaseFirestore.instance
+        .collection("users")
+        .where('role', isEqualTo: "driver")
+        .where('id', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .snapshots()
+        .first
+        .then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+      mapData = querySnapshot.docs.first.data();
+    });
     return Material(
       child: Container(
         decoration: BoxDecoration(
@@ -72,7 +92,8 @@ class _DriverDrawerState extends State<DriverDrawer>
                         width: 100,
                       ),
                       Text(
-                        'Rasheed',
+                        mapData!['name'],
+                        //"Rasheed",
                         style: TextStyle(letterSpacing: 3),
                       ),
                     ],
@@ -185,81 +206,84 @@ class _DriverDrawerState extends State<DriverDrawer>
               ],
             ),
             //drawer: DriverDrawer(),
-            body: Stack(
-              children: [
-                Column(
-                  children: [
-                    Card(
-                      child: Text(
-                        'ROUTE NUMBER: 12',
-                        style: TextStyle(
-                            wordSpacing: 3, letterSpacing: 3, fontSize: 30),
-                      ),
-                    ),
-                    Container(
-                        width: size.width * 1,
-                        height: 120,
-                        child: Image.asset(
-                          'assets/images/Person 05.jpg',
-                        )),
-                    Divider(),
-                    Container(
-                      height: size.height * 0.15,
-                      //width: size.width * 1,
-                      //width: double.infinity,
-                      decoration: BoxDecoration(
-                          // image: new DecorationImage(
-                          //   image: new ExactAssetImage('assets/images/Person 05.jpg'),
-                          //   fit: BoxFit.contain,
-                          // ),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(150),
-                              bottomLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                              bottomRight: Radius.circular(130)),
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.purple.shade200,
-                              Colors.blue.shade200
-                            ],
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                          )),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+            body: mapData == null
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Stack(
+                    children: [
+                      Column(
                         children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                'Vehicle Number:Acd123',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text(
-                                'Driver name: Asad',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text(
-                                'Inboard Student: 131',
-                                style: TextStyle(color: Colors.white),
-                              )
-                            ],
+                          Card(
+                            child: Text(
+                              "Route No: " + mapData!['routeNo'],
+                              style: TextStyle(
+                                  wordSpacing: 3,
+                                  letterSpacing: 3,
+                                  fontSize: 30),
+                            ),
                           ),
+                          Container(
+                              width: size.width * 1,
+                              height: 120,
+                              child: Image.asset(
+                                'assets/images/Person 05.jpg',
+                              )),
+                          Divider(),
+                          Container(
+                            height: size.height * 0.15,
+                            //width: size.width * 1,
+                            //width: double.infinity,
+                            decoration: BoxDecoration(
+                                // image: new DecorationImage(
+                                //   image: new ExactAssetImage('assets/images/Person 05.jpg'),
+                                //   fit: BoxFit.contain,
+                                // ),
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(150),
+                                    bottomLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20),
+                                    bottomRight: Radius.circular(130)),
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.purple.shade200,
+                                    Colors.blue.shade200
+                                  ],
+                                  begin: Alignment.topRight,
+                                  end: Alignment.bottomLeft,
+                                )),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      'Vehicle Number: ' + mapData!['vehicle'],
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    Text(
+                                      'Driver name: ' + mapData!['name'],
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: size.width * 0.9,
+                            height: size.height * 0.43,
+                            child: GoogleMapLocationScreen(d.currentLocation),
+                          )
                         ],
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      width: size.width * 0.9,
-                      height: size.height * 0.43,
-                      child: GoogleMapLocationScreen(d.currentLocation),
-                    )
-                  ],
-                ),
-              ],
-            ),
+                    ],
+                  ),
           ),
         ),
       ),

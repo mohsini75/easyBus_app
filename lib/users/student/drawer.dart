@@ -1,5 +1,6 @@
 import 'package:demo/services/challan.dart';
 import 'package:demo/users/student/dashboard.dart';
+import 'package:demo/users/student/my_transactions_chart.dart';
 import 'package:demo/users/student/rating_feedback.dart';
 import 'package:demo/users/student/student_Complain.dart';
 import 'package:demo/users/student/student_auth.dart';
@@ -8,7 +9,6 @@ import 'package:fancy_drawer/fancy_drawer.dart';
 import 'qr_scan.dart';
 import '/users/student/view_profile.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 //import '../providers/transaction.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -123,6 +123,18 @@ class _DrawerAppState extends State<DrawerApp>
                       ),
                       Divider(),
                       ListTile(
+                        leading: Icon(Icons.list),
+                        title: (Text('Transaction')),
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return MyTransactionChart();
+                          }));
+                        },
+                      ),
+                      Divider(),
+                      Divider(),
+                      ListTile(
                         leading: Icon(Icons.assignment_late_sharp),
                         title: (Text('Fee Challan')),
                         onTap: () {
@@ -142,7 +154,6 @@ class _DrawerAppState extends State<DrawerApp>
                           Navigator.of(context).pop();
                         },
                       ),
-                      Divider(),
                     ],
                   ),
                 ],
